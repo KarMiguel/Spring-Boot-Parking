@@ -1,6 +1,6 @@
 package io.github.KarMiguel.parkingapi.service;
 
-import io.github.KarMiguel.parkingapi.entity.User;
+import io.github.KarMiguel.parkingapi.entity.Users;
 import io.github.KarMiguel.parkingapi.exception.EntityUserNotFoundException;
 import io.github.KarMiguel.parkingapi.exception.PasswordInvalidException;
 import io.github.KarMiguel.parkingapi   .exception.UsernameUniqueViolationException;
@@ -20,7 +20,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final PasswordEncoder passwordEncoder;
     @Transactional
-    public User save(User user) throws UsernameUniqueViolationException {
+    public Users save(Users user) throws UsernameUniqueViolationException {
 
         try {
             user.setPassword(passwordEncoder.encode(user.getPassword()));
@@ -33,19 +33,19 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public User searchById(Long id) {
+    public Users searchById(Long id) {
         return userRepository
                 .findById(id)
                 .orElseThrow(
                         ()-> new EntityUserNotFoundException("Usuário não encontrado."));
     }
     @Transactional
-    public User updatePassword(Long id, String currentPassword, String newPassword, String confirmPassword) {
+    public Users updatePassword(Long id, String currentPassword, String newPassword, String confirmPassword) {
         if (!newPassword.equals(confirmPassword)) {
             throw  new PasswordInvalidException("Nova senha nao confere com confirmação de senha.");
         }
 
-        User user = searchById(id);
+        Users user = searchById(id);
         if (!passwordEncoder.matches(currentPassword,user.getPassword())){
             throw  new PasswordInvalidException("Sua senha não confere.");
         }
@@ -54,17 +54,17 @@ public class UserService {
     }
 
     @Transactional(readOnly = true)
-    public List<User> listAll() {
+    public List<Users> listAll() {
        return userRepository.findAll();
     }
     @Transactional(readOnly = true)
-    public User searchByName(String username) {
+    public Users searchByName(String username) {
         return userRepository.findByUsername(username).orElseThrow(
                 ()-> new EntityUserNotFoundException(String.format("Usuário com '%s' não encontrado.",username)));
     }
 
     @Transactional(readOnly = true)
-    public User.Role searchRoleByUsername(String username) {
+    public Users.Role searchRoleByUsername(String username) {
         return userRepository.findRoleByUsername(username);
     }
 }

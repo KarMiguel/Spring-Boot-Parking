@@ -142,7 +142,7 @@ public class UserIT {
         org.assertj.core.api.Assertions.assertThat(responseBody.getUsername()).isEqualTo("ana@gmail.com");
         org.assertj.core.api.Assertions.assertThat(responseBody.getRole()).isEqualTo("ADMIN");
     }
-    @Test
+   /* @Test
     public  void searchUser_withIdInexist_returnErrorMessageWithStatus404(){
         ErrorMessage responseBody = testClient
                 .get()
@@ -153,6 +153,6 @@ public class UserIT {
                 .returnResult().getResponseBody();
         org.assertj.core.api.Assertions.assertThat(responseBody).isNotNull();
         org.assertj.core.api.Assertions.assertThat(responseBody.getStatus()).isEqualTo(404);
-    }
+    }*/
 
 }

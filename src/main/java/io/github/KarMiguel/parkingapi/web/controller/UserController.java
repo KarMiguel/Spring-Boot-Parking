@@ -1,6 +1,6 @@
 package io.github.KarMiguel.parkingapi.web.controller;
 
-import io.github.KarMiguel.parkingapi.entity.User;
+import io.github.KarMiguel.parkingapi.entity.Users;
 import io.github.KarMiguel.parkingapi.exception.UsernameUniqueViolationException;
 import io.github.KarMiguel.parkingapi.service.UserService;
 import io.github.KarMiguel.parkingapi.web.dto.UserCreatedDTO;
@@ -44,7 +44,7 @@ public class UserController {
     })
     @PostMapping
     public ResponseEntity<UserResponseDTO> created(@RequestBody @Valid UserCreatedDTO dto) throws UsernameUniqueViolationException {
-        User user = userService.save(UserMapper.toUser(dto));
+        Users user = userService.save(UserMapper.toUser(dto));
         return  ResponseEntity.status(HttpStatus.CREATED).body(UserMapper.toDto(user));
     }
 
@@ -60,7 +60,7 @@ public class UserController {
             })
     @GetMapping("/{id}")
     public ResponseEntity<UserResponseDTO> getById(@PathVariable Long id){
-        User newUser = userService.searchById(id);
+        Users newUser = userService.searchById(id);
         return  ResponseEntity.ok(UserMapper.toDto(newUser));
     }
 
@@ -82,12 +82,12 @@ public class UserController {
 
     @PatchMapping("/{id}")
     public ResponseEntity<Void> updatePassword(@PathVariable Long id, @Valid @RequestBody UserPasswordDTO dto){
-        User newUser = userService.updatePassword(id, dto.getCurrentPassword(),dto.getNewPassword(),dto.getConfirmPassword());
+        Users newUser = userService.updatePassword(id, dto.getCurrentPassword(),dto.getNewPassword(),dto.getConfirmPassword());
         return  ResponseEntity.noContent().build();
     }
     @GetMapping
     public ResponseEntity<List<UserResponseDTO>> getAll(){
-        List<User> users = userService.listAll();
+        List<Users> users = userService.listAll();
         return  ResponseEntity.ok(UserMapper.toListDto(users));
     }
 
