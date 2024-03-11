@@ -3,6 +3,10 @@ package io.github.KarMiguel.parkingapi.entity;
 
 import jakarta.persistence.*;
 import lombok.*;
+import org.springframework.data.annotation.CreatedBy;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedBy;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -10,8 +14,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
 @Getter @Setter @NoArgsConstructor @AllArgsConstructor
-public class User  implements Serializable {
+public class Users implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -25,17 +30,21 @@ public class User  implements Serializable {
 
     @Column(nullable = false,length = 25)
     @Enumerated(EnumType.STRING)
-    private Role role = Role.ROLE_CLIENTE;
+    private Role role ;
 
+    @CreatedDate
     @Column(name = "date_created")
     private LocalDateTime dateCreated;
 
+    @LastModifiedBy
     @Column(name = "date_modification")
     private  LocalDateTime dateModification;
 
+    @CreatedBy
     @Column(name = "created_at")
     private String  createdAt;
 
+    @LastModifiedBy
     @Column(name = "modified_by")
     private  String modifiedBy;
 
@@ -54,7 +63,7 @@ public class User  implements Serializable {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
+        Users user = (Users) o;
         return Objects.equals(id, user.id);
     }
 
