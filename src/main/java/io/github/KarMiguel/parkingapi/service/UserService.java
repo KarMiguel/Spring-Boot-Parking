@@ -3,8 +3,9 @@ package io.github.KarMiguel.parkingapi.service;
 import io.github.KarMiguel.parkingapi.entity.User;
 import io.github.KarMiguel.parkingapi.exception.EntityUserNotFoundException;
 import io.github.KarMiguel.parkingapi.exception.PasswordInvalidException;
-import io.github.KarMiguel.parkingapi.exception.UsernameUniqueViolationException;
+import io.github.KarMiguel.parkingapi   .exception.UsernameUniqueViolationException;
 import io.github.KarMiguel.parkingapi.repository.UserRepository;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.transaction.annotation.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -17,10 +18,12 @@ import java.util.List;
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
     @Transactional
     public User save(User user) throws UsernameUniqueViolationException {
 
         try {
+            user.setPassword(passwordEncoder.encode(user.getPassword()));
             return userRepository.save(user);
 
         }catch (DataIntegrityViolationException ex){
@@ -43,15 +46,25 @@ public class UserService {
         }
 
         User user = searchById(id);
-        if (!user.getPassword().equals(currentPassword)){
+        if (!passwordEncoder.matches(currentPassword,user.getPassword())){
             throw  new PasswordInvalidException("Sua senha não confere.");
         }
-        user.setPassword(newPassword);
+        user.setPassword(passwordEncoder.encode(newPassword));
         return user;
     }
 
     @Transactional(readOnly = true)
     public List<User> listAll() {
        return userRepository.findAll();
+    }
+    @Transactional(readOnly = true)
+    public User searchByName(String username) {
+        return userRepository.findByUsername(username).orElseThrow(
+                ()-> new EntityUserNotFoundException(String.format("Usuário com '%s' não encontrado.",username)));
+    }
+
+    @Transactional(readOnly = true)
+    public User.Role searchRoleByUsername(String username) {
+        return userRepository.findRoleByUsername(username);
     }
 }
