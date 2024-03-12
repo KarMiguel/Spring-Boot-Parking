@@ -32,20 +32,14 @@ public class UserController {
 
     private final UserService userService;
 
-    @Operation(summary = "Criar novo Usuário",description = "Recurso para criar novo Usuário.",
-            responses = {
-            @ApiResponse(responseCode = "201",description = "Usuário já criado com Sucesso!",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation =UserResponseDTO.class ))),
-            @ApiResponse(responseCode = "403",description = "Usuário sem permissão.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorMessage.class ))),
-            @ApiResponse(responseCode = "409",description = "Usuário/e-email já cadastrado no sistema.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorMessage.class ))),
-            @ApiResponse(responseCode = "422",description = "Recurso não processados por dados de entrda inválidos.",
-                    content = @Content(mediaType = "application/json",
-                            schema = @Schema(implementation = ErrorMessage.class )))
+    @Operation(summary = "Criar um novo usuário", description = "Recurso para criar um novo usuário",
+        responses = {
+            @ApiResponse(responseCode = "201", description = "Recurso criado com sucesso",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = UserResponseDTO.class))),
+            @ApiResponse(responseCode = "409", description = "Usuário e-mail já cadastrado no sistema",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class))),
+            @ApiResponse(responseCode = "422", description = "Recurso não processado por dados de entrada invalidos",
+                    content = @Content(mediaType = "application/json", schema = @Schema(implementation = ErrorMessage.class)))
 
     })
     @PostMapping
@@ -76,21 +70,20 @@ public class UserController {
     }
 
     @Operation(summary = "Atualizar Senha",description = "Requisição exige um Bearer Token.Acesso retrito ADMIN|CLIENTE",
-            security = @SecurityRequirement(name = "security"),
+        security = @SecurityRequirement(name = "security"),
             responses = {
-                    @ApiResponse(responseCode = "204",description = "Senha atualizada com Sucesso!",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = Void.class ))),
-                    @ApiResponse(responseCode = "403",description = "Usuário sem permissão.",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = ErrorMessage.class ))),
-                    @ApiResponse(responseCode = "404",description = "Recurso não encontrado.",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = ErrorMessage.class ))),
-                    @ApiResponse(responseCode = "400",description = "Senha não confere.",
-                            content = @Content(mediaType = "application/json",
-                                    schema = @Schema(implementation = ErrorMessage.class )))
-
+                @ApiResponse(responseCode = "204",description = "Senha atualizada com Sucesso!",
+                        content = @Content(mediaType = "application/json",
+                                schema = @Schema(implementation = Void.class ))),
+                @ApiResponse(responseCode = "400",description = "Senha não confere.",
+                        content = @Content(mediaType = "application/json",
+                                schema = @Schema(implementation = ErrorMessage.class )))
+                @ApiResponse(responseCode = "403",description = "Usuário sem permissão.",
+                        content = @Content(mediaType = "application/json",
+                                schema = @Schema(implementation = ErrorMessage.class ))),
+                @ApiResponse(responseCode = "404",description = "Recurso não encontrado.",
+                        content = @Content(mediaType = "application/json",
+                                schema = @Schema(implementation = ErrorMessage.class ))),
 
             })
 

@@ -15,7 +15,7 @@ public class SpringDocOpenConfig {
     @Bean
     public OpenAPI openAPI(){
         return new OpenAPI()
-                .components(new Components().addSecuritySchemes("security",securityScheme()))
+                .components(new Components().addSecuritySchemes("security", securityScheme()))
                 .info(
                         new Info()
                                 .title("REST API - Spring Park")
@@ -26,9 +26,9 @@ public class SpringDocOpenConfig {
                 );
     }
 
-    private SecurityScheme securityScheme(){
+    private SecurityScheme securityScheme() {
         return new SecurityScheme()
-                .description("Insira um bearer token valido  para prosseguir")
+                .description("Insira um bearer token valido para prosseguir")
                 .type(SecurityScheme.Type.HTTP)
                 .in(SecurityScheme.In.HEADER)
                 .scheme("bearer")

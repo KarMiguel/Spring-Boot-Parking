@@ -40,9 +40,13 @@ public class SpringSecurityConfig {
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(
                                 antMatcher(HttpMethod.POST, "/api/v1/users"),
-                                antMatcher(HttpMethod.POST, "/api/v1/auth")
+                                antMatcher(HttpMethod.POST, "/api/v1/auth"),
+                                antMatcher("/docs.html"),
+                                antMatcher("/docs/**"),
+                                antMatcher("/swagger-ui.html"),
+                                antMatcher("/swagger-ui/**"),
+                                antMatcher("/webjars/**")
                         ).permitAll()
-                        //.requestMatchers(DOCUMENTATION_OPENAPI).permitAll()
                         .anyRequest().authenticated()
                 ).sessionManagement(
                         session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
