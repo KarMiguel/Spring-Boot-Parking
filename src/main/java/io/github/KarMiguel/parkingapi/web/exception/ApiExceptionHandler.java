@@ -1,6 +1,7 @@
 package io.github.KarMiguel.parkingapi.web.exception;
 
 import ch.qos.logback.classic.Logger;
+import io.github.KarMiguel.parkingapi.exception.CodeUniqueViolationException;
 import io.github.KarMiguel.parkingapi.exception.CpfUniqueViolationException;
 import io.github.KarMiguel.parkingapi.exception.EntityUserNotFoundException;
 import io.github.KarMiguel.parkingapi.exception.UsernameUniqueViolationException;
@@ -44,7 +45,7 @@ public class ApiExceptionHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(request,HttpStatus.NOT_FOUND, ex.getMessage()));
     }
-    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class})
+    @ExceptionHandler({UsernameUniqueViolationException.class, CpfUniqueViolationException.class, CodeUniqueViolationException.class})
     public ResponseEntity<ErrorMessage> uniqueViolationException(
             RuntimeException ex,
             HttpServletRequest request
