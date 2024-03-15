@@ -1,4 +1,4 @@
-package io.github.KarMiguel.parkingapi.web.dto;
+package io.github.KarMiguel.parkingapi.web.dto.users;
 
 
 import lombok.*;
