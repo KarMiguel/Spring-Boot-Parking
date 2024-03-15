@@ -1,5 +1,6 @@
 package io.github.KarMiguel.parkingapi.service;
 
+import io.github.KarMiguel.parkingapi.entity.Client;
 import io.github.KarMiguel.parkingapi.entity.Users;
 import io.github.KarMiguel.parkingapi.exception.EntityUserNotFoundException;
 import io.github.KarMiguel.parkingapi.exception.PasswordInvalidException;
@@ -67,4 +68,6 @@ public class UserService {
     public Users.Role searchRoleByUsername(String username) {
         return userRepository.findRoleByUsername(username);
     }
+
+
 }

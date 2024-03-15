@@ -1,8 +1,8 @@
 package io.github.KarMiguel.parkingapi.web.dto.mapper;
 
 import io.github.KarMiguel.parkingapi.entity.Users;
-import io.github.KarMiguel.parkingapi.web.dto.UserCreatedDTO;
-import io.github.KarMiguel.parkingapi.web.dto.UserResponseDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserCreatedDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserResponseDTO;
 import org.modelmapper.ModelMapper;
 import org.modelmapper.PropertyMap;
 

@@ -1,12 +1,10 @@
 package io.github.KarMiguel.parkingapi.web.controller;
 
 import io.github.KarMiguel.parkingapi.jwt.JwtToken;
-import io.github.KarMiguel.parkingapi.jwt.JwtUserDetails;
 import io.github.KarMiguel.parkingapi.jwt.JwtUserDetailsService;
-import io.github.KarMiguel.parkingapi.web.dto.UserLoginDTO;
-import io.github.KarMiguel.parkingapi.web.dto.UserResponseDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserLoginDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserResponseDTO;
 import io.github.KarMiguel.parkingapi.web.exception.ErrorMessage;
-import io.jsonwebtoken.Jwt;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
@@ -38,7 +36,7 @@ public class AuthenticationController {
     private final AuthenticationManager authenticationManager;
 
     @Operation(summary = "Autenticar API",description = "Recurso de autenticação na API",
-            security = @SecurityRequirement(name = "security"),
+        security = @SecurityRequirement(name = "security"),
             responses = {
                     @ApiResponse(responseCode = "200",description = "Autenticação realizada com sucesso e retorno com token!",
                             content = @Content(mediaType = "application/json",

@@ -3,9 +3,9 @@ package io.github.KarMiguel.parkingapi.web.controller;
 import io.github.KarMiguel.parkingapi.entity.Users;
 import io.github.KarMiguel.parkingapi.exception.UsernameUniqueViolationException;
 import io.github.KarMiguel.parkingapi.service.UserService;
-import io.github.KarMiguel.parkingapi.web.dto.UserCreatedDTO;
-import io.github.KarMiguel.parkingapi.web.dto.UserPasswordDTO;
-import io.github.KarMiguel.parkingapi.web.dto.UserResponseDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserCreatedDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserPasswordDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserResponseDTO;
 import io.github.KarMiguel.parkingapi.web.dto.mapper.UserMapper;
 import io.github.KarMiguel.parkingapi.web.exception.ErrorMessage;
 import io.swagger.v3.oas.annotations.Operation;
@@ -18,7 +18,6 @@ import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.annotation.Secured;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
@@ -77,7 +76,7 @@ public class UserController {
                                 schema = @Schema(implementation = Void.class ))),
                 @ApiResponse(responseCode = "400",description = "Senha não confere.",
                         content = @Content(mediaType = "application/json",
-                                schema = @Schema(implementation = ErrorMessage.class )))
+                                schema = @Schema(implementation = ErrorMessage.class ))),
                 @ApiResponse(responseCode = "403",description = "Usuário sem permissão.",
                         content = @Content(mediaType = "application/json",
                                 schema = @Schema(implementation = ErrorMessage.class ))),

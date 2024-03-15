@@ -1,8 +1,8 @@
 package io.github.KarMiguel.parkingapi;
 
-import io.github.KarMiguel.parkingapi.web.dto.UserCreatedDTO;
-import io.github.KarMiguel.parkingapi.web.dto.UserPasswordDTO;
-import io.github.KarMiguel.parkingapi.web.dto.UserResponseDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserCreatedDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserPasswordDTO;
+import io.github.KarMiguel.parkingapi.web.dto.users.UserResponseDTO;
 import io.github.KarMiguel.parkingapi.web.exception.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
