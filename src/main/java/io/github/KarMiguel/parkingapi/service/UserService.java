@@ -1,8 +1,7 @@
 package io.github.KarMiguel.parkingapi.service;
 
-import io.github.KarMiguel.parkingapi.entity.Client;
 import io.github.KarMiguel.parkingapi.entity.Users;
-import io.github.KarMiguel.parkingapi.exception.EntityUserNotFoundException;
+import io.github.KarMiguel.parkingapi.exception.EntityNotFoundException;
 import io.github.KarMiguel.parkingapi.exception.PasswordInvalidException;
 import io.github.KarMiguel.parkingapi   .exception.UsernameUniqueViolationException;
 import io.github.KarMiguel.parkingapi.repository.UserRepository;
@@ -38,7 +37,7 @@ public class UserService {
         return userRepository
                 .findById(id)
                 .orElseThrow(
-                        ()-> new EntityUserNotFoundException("Usuário não encontrado."));
+                        ()-> new EntityNotFoundException("Usuário não encontrado."));
     }
     @Transactional
     public Users updatePassword(Long id, String currentPassword, String newPassword, String confirmPassword) {
@@ -61,7 +60,7 @@ public class UserService {
     @Transactional(readOnly = true)
     public Users searchByName(String username) {
         return userRepository.findByUsername(username).orElseThrow(
-                ()-> new EntityUserNotFoundException(String.format("Usuário com '%s' não encontrado.",username)));
+                ()-> new EntityNotFoundException(String.format("Usuário com '%s' não encontrado.",username)));
     }
 
     @Transactional(readOnly = true)

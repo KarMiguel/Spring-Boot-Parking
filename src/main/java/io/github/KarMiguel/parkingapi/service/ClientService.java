@@ -2,7 +2,7 @@ package io.github.KarMiguel.parkingapi.service;
 
 import io.github.KarMiguel.parkingapi.entity.Client;
 import io.github.KarMiguel.parkingapi.exception.CpfUniqueViolationException;
-import io.github.KarMiguel.parkingapi.exception.EntityUserNotFoundException;
+import io.github.KarMiguel.parkingapi.exception.EntityNotFoundException;
 import io.github.KarMiguel.parkingapi.repository.ClientRepository;
 import io.github.KarMiguel.parkingapi.repository.projection.ClientProjection;
 import lombok.RequiredArgsConstructor;
@@ -11,8 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-
-import java.util.List;
 
 @Service
 @RequiredArgsConstructor
@@ -32,7 +30,7 @@ public class ClientService {
     @Transactional(readOnly = true)
     public Client searchById(Long id) {
         return clientRepository.findById(id)
-                .orElseThrow(() -> new EntityUserNotFoundException(String.format("Cliente id = %s não encontrada no sistema",id)));
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Cliente id = %s não encontrada no sistema",id)));
     }
 
     @Transactional(readOnly = true)
@@ -43,5 +41,11 @@ public class ClientService {
     @Transactional(readOnly = true)
     public Client searchByUsername(Long id) {
         return clientRepository.findByUserId(id);
+    }
+    @Transactional(readOnly = true)
+    public Client searchByCpf(String cpf) {
+        return clientRepository.findByCpf(cpf).orElseThrow(
+                () -> new jakarta.persistence.EntityNotFoundException(String.format("Cliente com CPF  '%s' não encontrado.",cpf))
+        );
     }
 }

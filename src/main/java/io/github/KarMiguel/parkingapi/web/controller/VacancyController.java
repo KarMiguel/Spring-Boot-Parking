@@ -75,9 +75,36 @@ public class VacancyController {
             })
     @GetMapping("/{code}")
     @PreAuthorize("hasRole('ADMIN')")
-    public ResponseEntity<VacancyResponseDTO> getByCode(@PathVariable String code){
+    public ResponseEntity<VacancyResponseDTO> getByCode(@PathVariable String code) {
         Vacancy vacancy = vacancyService.searchByCode(code);
         return ResponseEntity.ok(VacancyMapper.toDto(vacancy));
+    }
+
+    @Operation(summary = "Atualizar uma vaga", description = "Recurso para atualizar uma vaga existente." +
+            "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN'",
+            security = @SecurityRequirement(name = "security"),
+            responses = {
+                    @ApiResponse(responseCode = "204", description = "Vaga atualizada com sucesso"),
+                    @ApiResponse(responseCode = "404", description = "Vaga não encontrada",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = ErrorMessage.class))),
+                    @ApiResponse(responseCode = "403", description = "Recurso não permitido ao perfil de CLIENTE",
+                            content = @Content(mediaType = " application/json;charset=UTF-8",
+                                    schema = @Schema(implementation = ErrorMessage.class))
+                    )
+            })
+
+    @PutMapping("/{code}")
+    @PreAuthorize("hasRole('ADMIN')")
+    public ResponseEntity<Void> update(@PathVariable String code, @RequestBody @Valid VacancyCreatedDTO dto){
+        Vacancy existingVacancy = vacancyService.searchByCode(code);
+        if(existingVacancy == null) {
+            return ResponseEntity.notFound().build();
+        }
+        Vacancy updatedVacancy = VacancyMapper.toVacancy(dto);
+        updatedVacancy.setCode(code);
+        vacancyService.save(updatedVacancy);
+        return ResponseEntity.noContent().build();
     }
 
 }
