@@ -1,14 +1,11 @@
 package io.github.KarMiguel.parkingapi.web.exception;
 
-import ch.qos.logback.classic.Logger;
 import io.github.KarMiguel.parkingapi.exception.CodeUniqueViolationException;
 import io.github.KarMiguel.parkingapi.exception.CpfUniqueViolationException;
-import io.github.KarMiguel.parkingapi.exception.EntityUserNotFoundException;
+import io.github.KarMiguel.parkingapi.exception.EntityNotFoundException;
 import io.github.KarMiguel.parkingapi.exception.UsernameUniqueViolationException;
-import jakarta.persistence.EntityNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.http.HttpRequest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -34,7 +31,7 @@ public class ApiExceptionHandler {
                 .contentType(MediaType.APPLICATION_JSON)
                 .body(new ErrorMessage(request,HttpStatus.FORBIDDEN, ex.getMessage()));
     }
-    @ExceptionHandler(EntityUserNotFoundException.class)
+    @ExceptionHandler(EntityNotFoundException.class)
     public ResponseEntity<ErrorMessage> entityUserNotFoundException(
             RuntimeException ex,
             HttpServletRequest request
