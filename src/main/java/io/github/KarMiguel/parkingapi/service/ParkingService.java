@@ -48,7 +48,7 @@ public class ParkingService {
 
         BigDecimal discount =  ParkingUtils.calculateDiscount(price,totalNumberOfTimes);
         clientVacancy.setDiscount(discount);
-
+        clientVacancy.setTotal(price.subtract(discount));
         clientVacancy.setDateExit(dateDeparture);
         clientVacancy.getVacancy().setStatus(Vacancy.StatusVacancy.FREE);
 

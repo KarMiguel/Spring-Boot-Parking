@@ -27,5 +27,5 @@ public class ParkingCreateDTO {
     @NotBlank
     @Size(min = 11,max = 11)
     @CPF
-    private String clienteCpf;
+    private String clientCpf;
 }

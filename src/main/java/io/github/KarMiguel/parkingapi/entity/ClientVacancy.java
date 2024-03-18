@@ -43,6 +43,8 @@ public class ClientVacancy {
     private BigDecimal price;
     @Column(columnDefinition = "decimal(7,2)")
     private BigDecimal discount;
+    @Column(name = "total",columnDefinition = "decimal(7,2)")
+    private BigDecimal total;
     @ManyToOne
     @JoinColumn(name = "id_client",nullable = false)
     private Client client;

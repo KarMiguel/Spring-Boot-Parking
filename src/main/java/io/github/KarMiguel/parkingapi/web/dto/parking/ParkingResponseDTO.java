@@ -31,5 +31,5 @@ public class ParkingResponseDTO {
     private String vacancyCode;
     private BigDecimal price;
     private BigDecimal discount;
-
+    private BigDecimal total;
 }
