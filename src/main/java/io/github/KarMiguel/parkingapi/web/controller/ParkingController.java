@@ -3,7 +3,9 @@ package io.github.KarMiguel.parkingapi.web.controller;
 import io.github.KarMiguel.parkingapi.entity.ClientVacancy;
 import io.github.KarMiguel.parkingapi.jwt.JwtUserDetails;
 import io.github.KarMiguel.parkingapi.repository.projection.ClientVacancyProjection;
+import io.github.KarMiguel.parkingapi.service.ClientService;
 import io.github.KarMiguel.parkingapi.service.ClientVacancyService;
+import io.github.KarMiguel.parkingapi.service.JasperService;
 import io.github.KarMiguel.parkingapi.service.ParkingService;
 import io.github.KarMiguel.parkingapi.web.dto.PageableDTO;
 import io.github.KarMiguel.parkingapi.web.dto.mapper.ClientMapper;
@@ -19,6 +21,7 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import jakarta.servlet.http.HttpServletResponse;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -26,12 +29,15 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.io.IOException;
 import java.net.URI;
 
 import static io.swagger.v3.oas.annotations.enums.ParameterIn.PATH;
@@ -44,6 +50,8 @@ public class ParkingController {
 
     private final ParkingService parkingService;
     private final ClientVacancyService clientVacancyService;
+    private final ClientService clientService;
+    private  final JasperService jasperService;
 
     @Operation(summary = "Operação de check-in", description = "Recurso para dar entrada de um veículo no estacionamento. " +
             "Requisição exige uso de um bearer token. Acesso restrito a Role='ADMIN'",
@@ -205,4 +213,21 @@ public class ParkingController {
         PageableDTO dto = PageableMapper.toDto(projection);
         return ResponseEntity.ok(dto);
     }
+
+    @GetMapping("/report")
+    @PreAuthorize("hasRole('CLIENTE')")
+    public ResponseEntity<Void> getReport(HttpServletResponse response, @AuthenticationPrincipal JwtUserDetails user) throws IOException {
+        String cpf = clientService.searchById(user.getId()).getCpf();
+        jasperService.addParams("CPF",cpf);
+
+        byte[] bytes = jasperService.generatePDF();
+
+        response.setContentType(MediaType.APPLICATION_PDF_VALUE);
+        response.setHeader("Content-disposition", "filename=" + System.currentTimeMillis() + ".pdf");
+        response.getOutputStream().write(bytes);
+
+        return ResponseEntity.ok().build();
+    }
+
+
 }
