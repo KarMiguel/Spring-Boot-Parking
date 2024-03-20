@@ -29,7 +29,7 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public Client searchById(Long id) {
-        return clientRepository.findById(id)
+        return clientRepository.findByUserId(id)
                 .orElseThrow(() -> new EntityNotFoundException(String.format("Cliente id = %s não encontrada no sistema",id)));
     }
 
@@ -40,7 +40,9 @@ public class ClientService {
 
     @Transactional(readOnly = true)
     public Client searchByUsername(Long id) {
-        return clientRepository.findByUserId(id);
+        return clientRepository.findByUserId(id)
+                .orElseThrow(() -> new EntityNotFoundException(String.format("Cliente id = %s não encontrada no sistema",id)));
+
     }
     @Transactional(readOnly = true)
     public Client searchByCpf(String cpf) {
