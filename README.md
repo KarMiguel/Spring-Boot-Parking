@@ -1,7 +1,7 @@
 # Read Me First
 The following was discovered as part of building this project:
 
-* The original package name 'io.github.KarMiguel.demo-parking-api' is invalid and this project uses 'io.github.KarMiguel.parkingapi' instead.
+* The original package name 'io.github.KarMiguel.demo-parking-api' is invalid and this project uses 'io.github.KarMiguel.parkingapi' instead. 
 
 # Getting Started
 
