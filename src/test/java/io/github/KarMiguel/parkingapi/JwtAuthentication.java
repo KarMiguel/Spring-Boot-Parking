@@ -2,7 +2,7 @@ package io.github.KarMiguel.parkingapi;
 
 
 import io.github.KarMiguel.parkingapi.jwt.JwtToken;
-import io.github.KarMiguel.parkingapi.web.dto.users.UserLoginDTO;
+import io.github.KarMiguel.parkingapi.rest.dto.users.UserLoginDTO;
 
 import org.springframework.http.HttpHeaders;
 import org.springframework.test.web.reactive.server.WebTestClient;

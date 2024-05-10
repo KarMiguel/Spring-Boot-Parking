@@ -1,9 +1,9 @@
 package io.github.KarMiguel.parkingapi;
 
-import io.github.KarMiguel.parkingapi.web.dto.users.UserCreatedDTO;
-import io.github.KarMiguel.parkingapi.web.dto.users.UserPasswordDTO;
-import io.github.KarMiguel.parkingapi.web.dto.users.UserResponseDTO;
-import io.github.KarMiguel.parkingapi.web.exception.ErrorMessage;
+import io.github.KarMiguel.parkingapi.rest.dto.users.UserCreatedDTO;
+import io.github.KarMiguel.parkingapi.rest.dto.users.UserPasswordDTO;
+import io.github.KarMiguel.parkingapi.rest.dto.users.UserResponseDTO;
+import io.github.KarMiguel.parkingapi.rest.exception.ErrorMessage;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -20,7 +20,6 @@ public class UserIT {
 
     @Autowired
     WebTestClient testClient;
-
     @Test
     public  void created_userUserandPasswordValid_return_user_created_status_201(){
         UserResponseDTO responseBody = testClient
