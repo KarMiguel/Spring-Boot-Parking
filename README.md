@@ -1,4 +1,4 @@
-# Estacionamento API
+# Gestão de Estacionamento API
 
 Este é um projeto de demonstração para um sistema de gestão de estacionamento desenvolvido com Spring Boot.
 
