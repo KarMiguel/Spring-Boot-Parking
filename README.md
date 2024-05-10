@@ -1,26 +1,35 @@
-# Read Me First
-The following was discovered as part of building this project:
+# Estacionamento API
 
-* The original package name 'io.github.KarMiguel.demo-parking-api' is invalid and this project uses 'io.github.KarMiguel.parkingapi' instead. 
+Este é um projeto de demonstração para um sistema de gestão de estacionamento desenvolvido com Spring Boot.
 
-# Getting Started
+## Funcionalidades Principais
 
-### Reference Documentation
-For further reference, please consider the following sections:
+- Cadastro de usuários e admin do sistemas.
+- Gestão de estacionamento, incluindo adição, remoção e atualização de registros de veículos estacionados.
+- Geração de relatórios em formato JPS para análise de dados.
+- Controle de acesso com níveis de permissão de administrador e usuário.
 
-* [Official Apache Maven documentation](https://maven.apache.org/guides/index.html)
-* [Spring Boot Maven Plugin Reference Guide](https://docs.spring.io/spring-boot/docs/3.2.3/maven-plugin/reference/html/)
-* [Create an OCI image](https://docs.spring.io/spring-boot/docs/3.2.3/maven-plugin/reference/html/#build-image)
-* [Spring Data JPA](https://docs.spring.io/spring-boot/docs/3.2.3/reference/htmlsingle/index.html#data.sql.jpa-and-spring-data)
-* [Spring Web](https://docs.spring.io/spring-boot/docs/3.2.3/reference/htmlsingle/index.html#web)
-* [Spring Boot DevTools](https://docs.spring.io/spring-boot/docs/3.2.3/reference/htmlsingle/index.html#using.devtools)
+## Pré-requisitos
 
-### Guides
-The following guides illustrate how to use some features concretely:
+- JDK 21 
+- Maven 3.x instalado.
+- PostgreSQL instalado 
 
-* [Accessing Data with JPA](https://spring.io/guides/gs/accessing-data-jpa/)
-* [Building a RESTful Web Service](https://spring.io/guides/gs/rest-service/)
-* [Serving Web Content with Spring MVC](https://spring.io/guides/gs/serving-web-content/)
-* [Building REST services with Spring](https://spring.io/guides/tutorials/rest/)
-* [Accessing data with MySQL](https://spring.io/guides/gs/accessing-data-mysql/)
+## Configuração do Banco de Dados
 
+O projeto é configurado para usar o PostgreSQL como banco de dados principal. Certifique-se de configurar corretamente o banco de dados em `src/main/resources/application.properties`.
+
+```properties
+spring.datasource.url=jdbc:postgresql://localhost:5432/seu_banco_de_dados
+spring.datasource.username=seu_usuario
+spring.datasource.password=sua_senha
+spring.datasource.driver-class-name=org.postgresql.Driver
+spring.jpa.database-platform=org.hibernate.dialect.PostgreSQLDialect
+
+## Clone o repositório
+
+- git clone https://github.com/KarMiguel/parking-api.git
+
+## Documentação da API
+
+- http://localhost:8090/docs.html
